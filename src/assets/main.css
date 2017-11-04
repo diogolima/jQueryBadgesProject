@@ -38,3 +38,12 @@ body {
 .course a {
   display: block;
 }
+
+#score {
+  text-align: right;
+  background-color: #4682B4;
+}
+#avatar img{
+  text-align: right;
+  width: auto;
+}
