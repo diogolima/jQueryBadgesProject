@@ -5,6 +5,7 @@ $(function() {
     dataType: 'jsonp',
     success: function(response) {
       addCompletedCourses(response.courses.completed);
+      addAchievementBadges(response.badges);
       addAvatar(response.user);
       addScore(response.user);
     }
@@ -13,25 +14,7 @@ $(function() {
   function addCompletedCourses(courses) {
     $badges = $('#badges');//handle response
     courses.forEach(function(course) {
-      var $course = $('<div />', {
-        'class': 'course'
-      }).appendTo($badges);
-
-      $('<h3 />', {
-        text: course.title
-      }).appendTo($course);
-
-      $('<img />', {
-        src: course.badge
-      }).appendTo($course);
-
-      $('<a />', {
-        'class': 'btn btn-primary',
-        target: '_blank',
-        href: course.url,
-        text: 'See Course'
-      }).appendTo($course);
-
+      addHtmlBadges(badges, course.title, course.badge, course.url);
     })
   }
 
@@ -46,5 +29,34 @@ $(function() {
       id: 'score',
       text: 'My Score:'+user.total_score
     }).appendTo($('#mySettings'));
+  }
+
+  function addAchievementBadges(achievements) {
+    $badges = $('#badges');//handle response
+    achievements.forEach(function(achievement) {
+      if(achievement.course_url == null){
+        addHtmlBadges(badges, achievement.name, achievement.badge, "http://www.codeschool.com");
+      }
+    })
+  }
+
+  function addHtmlBadges(badges, title, img, url){
+    var $course = $('<div />', {
+      'class': 'course'
+    }).appendTo($badges);
+
+    $('<h3 />', {
+      text: title
+    }).appendTo($course);
+
+    $('<img />', {
+      src: img
+    }).appendTo($course);
+    $('<a />', {
+      'class': 'btn btn-primary',
+      target: '_blank',
+      href: url,
+      text: 'See Course'
+    }).appendTo($course);
   }
 })
