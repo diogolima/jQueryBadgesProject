@@ -29,5 +29,8 @@
     "presets": [
       "es2015"
     ]
+  },
+  "dependencies": {
+    "foobar": "^1.1.0"
   }
 }
